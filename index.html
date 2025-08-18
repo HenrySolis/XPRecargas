@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1footer-title 0">
+    <title>XPRecargas - La manera más rápida y fácil de comprar créditos de juegos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+</head>
+<body>
+    <!-- Intro Animation con Sponsor -->
+    <div id="intro">
+        <div class="intro-sponsor">Sponsored by:</div>
+        <div class="intro-collaboration" id="collabText">XPRecargas × Stake</div>
+        <div class="intro-logo">🎮</div>
+        <h1 class="intro-title">XPRecargas</h1>
+        <p class="intro-subtitle">La plataforma gaming más profesional para recargar créditos de videojuegos</p>
+    </div>
+
+    <!-- Auth Container -->
+    <div id="auth" class="auth-container hidden">
+        <div class="auth-modal">
+            <h2 class="auth-title">XPRecargas</h2>
+            <p class="auth-subtitle">Accede a la plataforma gaming profesional</p>
+            <input type="text" id="username" class="auth-input" placeholder="Nombre de usuario">
+            <input type="password" id="password" class="auth-input" placeholder="Contraseña">
+            <div class="auth-buttons">
+                <button id="register" class="btn btn-secondary">Registrarse</button>
+                <button id="login" class="btn btn-primary">Iniciar Sesión</button>
+            </div>
+            <div id="authMessage" class="auth-message hidden"></div>
+        </div>
+    </div>
+
+    <!-- Sidebar Menu -->
+    <div id="sidebar" class="sidebar hidden">
+        <div class="sidebar-overlay"></div>
+        <div class="sidebar-content">
+            <div class="sidebar-header">
+                <h3 class="sidebar-title">
+                    <i class="fas fa-gamepad"></i>
+                    Menú Gaming
+                </h3>
+                <button class="sidebar-close" id="sidebarClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <h4 class="nav-section-title">Mi Cuenta</h4>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-user-circle"></i>
+                        <span>Mi Perfil Gamer</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-coins"></i>
+                        <span>Mi Saldo XP</span>
+                        <span class="nav-badge">2,500 XP</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-trophy"></i>
+                        <span>Mis Logros</span>
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <h4 class="nav-section-title">Gaming</h4>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Historial de Compras</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-star"></i>
+                        <span>Mis Juegos Favoritos</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-gift"></i>
+                        <span>Ofertas Especiales</span>
+                        <span class="nav-badge new">¡Nuevo!</span>
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <h4 class="nav-section-title">Plataforma</h4>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-cog"></i>
+                        <span>Configuración</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-headset"></i>
+                        <span>Soporte Gaming</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Ayuda y FAQ</span>
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <h4 class="nav-section-title">Cuenta</h4>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-bell"></i>
+                        <span>Notificaciones</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Seguridad</span>
+                    </a>
+                    <a href="#" class="nav-item danger">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Cerrar Sesión</span>
+                    </a>
+                </div>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="gamer-stats">
+                    <h4>Stats Gaming</h4>
+                    <div class="stat-item">
+                        <span>Nivel Gamer:</span>
+                        <strong>Pro Level 5</strong>
+                    </div>
+                    <div class="stat-item">
+                        <span>Compras Totales:</span>
+                        <strong>12 juegos</strong>
+                    </div>
+                    <div class="stat-item">
+                        <span>XP Total:</span>
+                        <strong>15,250 XP</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header hidden" id="header">
+        <div class="header-container">
+            <div style="display: flex; align-items: center;">
+                <button id="menuToggle" class="header-btn" style="margin-right: 1rem;">
+                  <i class="fas fa-bars"></i>
+                </button>
+                <a href="#" class="logo">
+                    <i class="fas fa-gamepad"></i>
+                    <span class="logo-text">XPRECARGAS</span>
+                </a>
+                <span class="header-tagline">La plataforma gaming más profesional de Argentina</span>
+            </div>
+            
+            <div class="header-actions">
+                <div class="user-info hidden" id="userInfo">
+                    <span style="color: var(--medium-gray);">Gamer: <strong id="userDisplay">-</strong></span>
+                    <div class="balance-display">
+                        <i class="fas fa-coins"></i>
+                        <span id="userBalance">0</span> XP
+                    </div>
+                </div>
+                <div id="guestActions">
+                    <button class="header-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button class="header-btn">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                    <button class="register-btn" id="headerRegister">Únete Ahora</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content hidden" id="mainContent">
+        <!-- Hero Banner -->
+        <section class="hero-banner">
+            <div class="banner-card">
+                <div class="banner-content">
+                    <h1 class="banner-title">¡DOMINA TUS JUEGOS FAVORITOS!</h1>
+                    <p class="banner-subtitle">La plataforma gaming más avanzada con miles de jugadores profesionales. Recarga créditos instantáneamente y lleva tu experiencia gaming al siguiente nivel.</p>
+                    
+                    <div class="banner-features">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <h3 class="feature-title">Gaming Instantáneo</h3>
+                            <p class="feature-desc">Recarga en segundos y domina la competencia sin esperas</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h3 class="feature-title">Seguridad Pro</h3>
+                            <p class="feature-desc">Transacciones 100% seguras con tecnología gaming de elite</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <h3 class="feature-title">Gaming Premium</h3>
+                            <p class="feature-desc">Los mejores precios para gamers profesionales y competitivos</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-headset"></i>
+                            </div>
+                            <h3 class="feature-title">Soporte Gamer</h3>
+                            <p class="feature-desc">Equipo especializado en gaming disponible 24/7</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Games Container -->
+        <div class="games-container">
+            <!-- Web Store Section -->
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">GAMING STORE</h2>
+                    <span class="section-badge">Premium</span>
+                </div>
+                <div class="games-grid" id="webStoreGames">
+                    <!-- Games will be inserted here -->
+                </div>
+            </section>
+
+            <!-- Popular Games Section -->
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">MÁS JUGADOS</h2>
+                    <span class="section-badge">Hot</span>
+                </div>
+                <div class="games-grid" id="popularGames">
+                    <!-- Games will be inserted here -->
+                </div>
+            </section>
+
+            <!-- New Games Section -->
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">NUEVOS LANZAMIENTOS</h2>
+                    <span class="section-badge">New</span>
+                </div>
+                <div class="games-grid" id="newGames">
+                    <!-- Games will be inserted here -->
+                </div>
+            </section>
+        </div>
+
+        <!-- Sponsors Section -->
+        <section class="sponsors-section">
+            <div class="sponsors-container">
+                <h2 class="sponsors-title">NUESTROS SPONSORS</h2>
+                <div class="sponsors-grid">
+                    <div class="sponsor-card">
+                        <div class="sponsor-logo">
+                            <i class="fas fa-dice"></i>
+                        </div>
+                        <h3 class="sponsor-name">Stake</h3>
+                        <p class="sponsor-description">
+                            La plataforma de gaming y entretenimiento más confiable del mundo. 
+                            Únete a millones de usuarios que confían en Stake para sus experiencias gaming premium.
+                        </p>
+                        <a href="https://stake.com" target="_blank" class="sponsor-link">
+                            Visitar Stake
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                    
+                    <div class="sponsor-card">
+                        <div class="sponsor-logo">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h3 class="sponsor-name">Gaming Pro</h3>
+                        <p class="sponsor-description">
+                            Equipos gaming de última generación para llevarte al siguiente nivel. 
+                            Hardware profesional para gamers exigentes que buscan el máximo rendimiento.
+                        </p>
+                        <a href="#" class="sponsor-link">
+                            Explorar Gaming Pro
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <p class="sponsors-footer">
+                    ¿Quieres ser nuestro sponsor? Contáctanos para oportunidades de colaboración exclusivas.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Purchase Modal -->
+    <div id="purchaseModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h2 class="modal-title">Completar Compra Gaming</h2>
+            
+            <div class="form-group">
+                <label class="form-label">🎮 Juego Seleccionado</label>
+                <select id="gameSelected" class="form-select">
+                    <!-- Options will be populated -->
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">⚡ Cantidad de Servicios</label>
+                <input type="number" id="amountSelected" class="form-input" min="1">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">👤 Nombre de Gamer</label>
+                <input type="text" id="fullName" class="form-input" placeholder="Tu nombre completo de gamer">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">📱 Teléfono Gaming</label>
+                <input type="tel" id="phone" class="form-input" placeholder="Tu número de contacto">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">🆔 Documento</label>
+                <input type="text" id="dni" class="form-input" placeholder="Tu número de documento">
+            </div>
+
+            <div class="modal-buttons">
+                <button id="cancelPurchase" class="btn btn-secondary">Cancelar</button>
+                <button id="toPayment" class="btn btn-primary">Proceder al Pago</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h2 class="modal-title">💰 Pago Gaming</h2>
+            
+            <div class="payment-summary">
+                <div class="payment-amount">$<span id="paymentAmount">0</span></div>
+                <div class="payment-details">🏦 CBU Gaming: 123-456-789-XP</div>
+                <div class="payment-details">🏪 Banco: XPRecargas Gaming</div>
+                <div class="payment-details">👤 Titular: XPRecargas Gaming S.A.</div>
+            </div>
+
+            <p style="text-align: center; margin-bottom: 2rem; color: var(--medium-gray); font-weight: 500;">
+                🚀 <strong>Pro Tip:</strong> Envía tu comprobante por WhatsApp para activación instantánea y bonos gaming exclusivos.
+            </p>
+
+            <div class="modal-buttons">
+                <button id="backToPurchase" class="btn btn-secondary">Volver</button>
+                <button id="sendWhatsApp" class="btn btn-primary pulse-blue">
+                    <i class="fab fa-whatsapp"></i>
+                    Enviar Comprobante
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer hidden" id="footer">
+        <div class="footer-content">
+            <h3 class="footer-title">XPRecargas Gaming Argentina</h3>
+            <p class="footer-text">
+                🎮 La plataforma gaming líder en Argentina. Miles de gamers profesionales y competitivos confían en nosotros para recargar créditos instantáneamente. Sin registros complicados, sin demoras. ¡Tu gaming, tu poder!
+            </p>
+            
+            <div class="footer-links">
+                <a href="#" class="footer-link">Términos Gaming</a>
+                <a href="#" class="footer-link">Privacidad Pro</a>
+                <a href="#" class="footer-link">Soporte Gamer</a>
+                <a href="#" class="footer-link">Comunidad</a>
+                <a href="#" class="footer-link">Ranking</a>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 XPRecargas Gaming. Todos los derechos reservados. 🚀 Powered by Gamers, for Gamers.</p>
+            </div>
+        </div>
+    </footer>
+
+ <script src="script.js" defer></script>
+</body>
+</html>
