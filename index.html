@@ -6,9 +6,1292 @@
     <title>XPRecargas - La manera más rápida y fácil de comprar créditos de juegos</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        
+    :root {
+        --primary-blue: #1e40af;
+        --secondary-blue: #3b82f6;
+        --accent-blue: #60a5fa;
+        --light-blue: #dbeafe;
+        --dark-navy: #0f172a;
+        --dark-gray: #1e293b;
+        --medium-gray: #475569;
+        --light-gray: #f1f5f9;
+        --white: #ffffff;
+        --black: #000000;
+        --success-green: #10b981;
+        --warning-orange: #f59e0b;
+        --error-red: #ef4444;
+        --stake-purple: #8b5cf6;
+        --stake-green: #10b981;
+        
+        --gradient-primary: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+        --gradient-hero: linear-gradient(135deg, #0f172a 0%, #1e40af 50%, #3b82f6 100%);
+        --gradient-stake: linear-gradient(135deg, #8b5cf6 0%, #10b981 100%);
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
 
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        background: var(--white);
+        color: var(--dark-navy);
+        line-height: 1.6;
+        overflow-x: hidden;
+    }
+
+    .hidden { 
+        display: none !important; 
+    }
+
+    /* INTRO ANIMATION CON SPONSOR */
+    #intro {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: var(--gradient-hero);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        text-align: center;
+    }
+
+    .intro-sponsor {
+        font-size: 1.5rem;
+        color: var(--accent-blue);
+        font-weight: 600;
+        margin-bottom: 1rem;
+        opacity: 0;
+        letter-spacing: 1px;
+    }
+
+    .intro-collaboration {
+        font-size: 2.5rem;
+        font-weight: 900;
+        margin-bottom: 2rem;
+        opacity: 0;
+        background: var(--gradient-stake);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .intro-logo {
+        font-size: 6rem;
+        margin-bottom: 2rem;
+        opacity: 0;
+        color: var(--accent-blue);
+        filter: drop-shadow(0 0 30px rgba(96, 165, 250, 0.5));
+    }
+
+    .intro-title {
+        font-size: 4rem;
+        font-weight: 900;
+        margin-bottom: 1.5rem;
+        opacity: 0;
+        color: var(--white);
+        text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .intro-subtitle {
+        font-size: 1.5rem;
+        opacity: 0;
+        color: var(--accent-blue);
+        max-width: 700px;
+        font-weight: 400;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        z-index: 9999;
+        transition: all 0.3s ease;
+    }
+
+    .sidebar-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(5px);
+    }
+
+    .sidebar-content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 350px;
+        height: 100%;
+        background: var(--white);
+        box-shadow: var(--shadow-2xl);
+        overflow-y: auto;
+        transform: translateX(-100%);
+        transition: transform 0.4s ease;
+    }
+
+    .sidebar.active .sidebar-content {
+        transform: translateX(0);
+    }
+
+    .sidebar-header {
+        padding: 2rem;
+        background: var(--gradient-primary);
+        color: var(--white);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .sidebar-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .sidebar-close {
+        background: none;
+        border: none;
+        color: var(--white);
+        font-size: 1.5rem;
+        cursor: pointer;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .sidebar-close:hover {
+        background: rgba(255, 255, 255, 0.2);
+    }
+
+    .sidebar-nav {
+        padding: 1rem 0;
+    }
+
+    .nav-section {
+        margin-bottom: 2rem;
+    }
+
+    .nav-section-title {
+        font-size: 0.875rem;
+        font-weight: 700;
+        color: var(--medium-gray);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 0 2rem 1rem;
+        border-bottom: 1px solid var(--light-gray);
+        margin-bottom: 1rem;
+    }
+
+    .nav-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 2rem;
+        text-decoration: none;
+        color: var(--dark-navy);
+        font-weight: 500;
+        transition: all 0.3s ease;
+        border-left: 4px solid transparent;
+    }
+
+    .nav-item:hover {
+        background: var(--light-blue);
+        border-left-color: var(--primary-blue);
+        color: var(--primary-blue);
+    }
+
+    .nav-item.danger {
+        color: var(--error-red);
+    }
+
+    .nav-item.danger:hover {
+        background: rgba(239, 68, 68, 0.1);
+        border-left-color: var(--error-red);
+    }
+
+    .nav-item i {
+        font-size: 1.25rem;
+        margin-right: 1rem;
+        width: 20px;
+        text-align: center;
+    }
+
+    .nav-badge {
+        background: var(--primary-blue);
+        color: var(--white);
+        padding: 0.25rem 0.75rem;
+        border-radius: 1rem;
+        font-size: 0.75rem;
+        font-weight: 700;
+    }
+
+    .nav-badge.new {
+        background: var(--warning-orange);
+        animation: pulse 2s infinite;
+    }
+
+    .sidebar-footer {
+        padding: 2rem;
+        border-top: 1px solid var(--light-gray);
+        background: var(--light-gray);
+    }
+
+    .gamer-stats h4 {
+        font-size: 1.125rem;
+        font-weight: 700;
+        color: var(--dark-navy);
+        margin-bottom: 1rem;
+    }
+
+    .stat-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 0;
+        font-size: 0.875rem;
+    }
+
+    .stat-item span {
+        color: var(--medium-gray);
+    }
+
+    .stat-item strong {
+        color: var(--primary-blue);
+        font-weight: 700;
+    }
+
+    /* HEADER */
+    .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background: var(--white);
+        border-bottom: 1px solid var(--light-gray);
+        padding: 1rem 0;
+        backdrop-filter: blur(20px);
+        box-shadow: var(--shadow-sm);
+    }
+
+    .header-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: var(--dark-navy);
+        font-weight: 800;
+        font-size: 1.5rem;
+    }
+
+    .logo i {
+        font-size: 2rem;
+        margin-right: 0.75rem;
+        color: var(--primary-blue);
+    }
+
+    .logo-text {
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .header-tagline {
+        font-size: 0.875rem;
+        color: var(--medium-gray);
+        margin-left: 2rem;
+        font-weight: 500;
+    }
+
+    .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    .header-btn {
+        background: none;
+        border: none;
+        color: var(--medium-gray);
+        font-size: 1.25rem;
+        cursor: pointer;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .header-btn:hover {
+        color: var(--primary-blue);
+        background: var(--light-gray);
+    }
+
+    .register-btn {
+        background: var(--primary-blue);
+        color: var(--white);
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.75rem;
+        font-weight: 600;
+        font-size: 0.875rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-md);
+    }
+
+    .register-btn:hover {
+        background: var(--secondary-blue);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .user-info {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+    }
+
+    .balance-display {
+        background: var(--light-blue);
+        color: var(--primary-blue);
+        border: 2px solid var(--accent-blue);
+        padding: 0.5rem 1.25rem;
+        border-radius: 2rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        box-shadow: var(--shadow-sm);
+    }
+
+    /* AUTH */
+    .auth-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: var(--gradient-hero);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .auth-modal {
+        background: var(--white);
+        border-radius: 2rem;
+        padding: 3rem;
+        width: 90%;
+        max-width: 450px;
+        text-align: center;
+        box-shadow: var(--shadow-2xl);
+        border: 1px solid var(--light-gray);
+    }
+
+    .auth-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 0.5rem;
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .auth-subtitle {
+        color: var(--medium-gray);
+        margin-bottom: 2.5rem;
+        font-size: 1rem;
+    }
+
+    .auth-input {
+        width: 100%;
+        padding: 1.25rem;
+        margin-bottom: 1.25rem;
+        border: 2px solid var(--light-gray);
+        border-radius: 1rem;
+        background: var(--white);
+        color: var(--dark-navy);
+        font-size: 1rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .auth-input:focus {
+        outline: none;
+        border-color: var(--primary-blue);
+        box-shadow: 0 0 0 4px rgba(30, 64, 175, 0.1);
+    }
+
+    .auth-input::placeholder {
+        color: var(--medium-gray);
+        font-weight: 400;
+    }
+
+    .auth-buttons {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+
+    .btn {
+        flex: 1;
+        padding: 1.25rem;
+        border: none;
+        border-radius: 1rem;
+        font-size: 1rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .btn-primary {
+        background: var(--primary-blue);
+        color: var(--white);
+        box-shadow: var(--shadow-md);
+    }
+
+    .btn-primary:hover {
+        background: var(--secondary-blue);
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-xl);
+    }
+
+    .btn-secondary {
+        background: var(--light-gray);
+        color: var(--dark-navy);
+        border: 2px solid var(--light-gray);
+    }
+
+    .btn-secondary:hover {
+        background: var(--white);
+        border-color: var(--primary-blue);
+        color: var(--primary-blue);
+        transform: translateY(-3px);
+    }
+
+    .auth-message {
+        margin-top: 1.5rem;
+        padding: 1rem;
+        border-radius: 1rem;
+        font-size: 0.875rem;
+        font-weight: 600;
+        border: 2px solid;
+    }
+
+    .auth-message.success {
+        background: rgba(16, 185, 129, 0.1);
+        border-color: var(--success-green);
+        color: var(--success-green);
+    }
+
+    .auth-message.error {
+        background: rgba(239, 68, 68, 0.1);
+        border-color: var(--error-red);
+        color: var(--error-red);
+    }
+
+    /* MAIN CONTENT */
+    .main-content {
+        min-height: 100vh;
+        padding-top: 6rem;
+        background: var(--white);
+    }
+
+    /* HERO BANNER */
+    .hero-banner {
+        max-width: 1400px;
+        margin: 2rem auto 4rem;
+        padding: 0 2rem;
+    }
+
+    .banner-card {
+        background: var(--gradient-primary);
+        border-radius: 2rem;
+        padding: 4rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        box-shadow: var(--shadow-2xl);
+        color: var(--white);
+    }
+
+    .banner-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    .banner-title {
+        font-size: 3.5rem;
+        font-weight: 900;
+        margin-bottom: 1.5rem;
+        text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        line-height: 1.1;
+    }
+
+    .banner-subtitle {
+        font-size: 1.25rem;
+        opacity: 0.9;
+        margin-bottom: 3rem;
+        font-weight: 400;
+    }
+
+    .banner-features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 3rem;
+        margin-top: 4rem;
+    }
+
+    .feature-item {
+        text-align: center;
+    }
+
+    .feature-icon {
+        width: 80px;
+        height: 80px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        font-size: 2rem;
+        color: var(--white);
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .feature-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+    }
+
+    .feature-desc {
+        font-size: 0.95rem;
+        opacity: 0.85;
+        line-height: 1.5;
+    }
+
+    /* GAME SECTIONS */
+    .games-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    .section {
+        margin-bottom: 5rem;
+    }
+
+    .section-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 3rem;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--dark-navy);
+        margin-right: 1.5rem;
+        letter-spacing: -0.5px;
+    }
+
+    .section-badge {
+        background: var(--warning-orange);
+        color: var(--white);
+        padding: 0.5rem 1rem;
+        border-radius: 2rem;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        box-shadow: var(--shadow-md);
+    }
+
+    .games-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 2rem;
+    }
+
+    .game-card {
+        background: var(--white);
+        border: 2px solid var(--light-gray);
+        border-radius: 1.5rem;
+        overflow: hidden;
+        transition: all 0.4s ease;
+        cursor: pointer;
+        position: relative;
+        box-shadow: var(--shadow-md);
+    }
+
+    .game-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-2xl);
+        border-color: var(--primary-blue);
+    }
+
+    .game-card.new::before {
+        content: 'NUEVO';
+        position: absolute;
+        top: 1.5rem;
+        right: -2rem;
+        background: var(--error-red);
+        color: var(--white);
+        padding: 0.5rem 3rem;
+        font-size: 0.75rem;
+        font-weight: 800;
+        transform: rotate(45deg);
+        z-index: 10;
+        box-shadow: var(--shadow-lg);
+        letter-spacing: 1px;
+    }
+
+    .game-image {
+        width: 100%;
+        height: 200px;
+        position: relative;
+        overflow: hidden;
+        background: var(--light-gray);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .game-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+    }
+
+    .game-card:hover .game-image img {
+        transform: scale(1.1);
+    }
+
+    .game-image-placeholder {
+        font-size: 4rem;
+        color: var(--medium-gray);
+        opacity: 0.5;
+    }
+
+    .game-content {
+        padding: 2rem;
+    }
+
+    .game-title {
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+        color: var(--dark-navy);
+        line-height: 1.3;
+    }
+
+    .game-description {
+        font-size: 0.95rem;
+        color: var(--medium-gray);
+        margin-bottom: 2rem;
+        line-height: 1.6;
+    }
+
+    .game-controls {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .quantity-group {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .quantity-label {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: var(--dark-navy);
+        flex-shrink: 0;
+        min-width: 80px;
+    }
+
+    .quantity-input {
+        flex: 1;
+        padding: 1rem;
+        border: 2px solid var(--light-gray);
+        border-radius: 0.75rem;
+        background: var(--white);
+        color: var(--dark-navy);
+        text-align: center;
+        font-weight: 700;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .quantity-input:focus {
+        outline: none;
+        border-color: var(--primary-blue);
+        box-shadow: 0 0 0 4px rgba(30, 64, 175, 0.1);
+    }
+
+    .price-display {
+        text-align: center;
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: var(--primary-blue);
+        margin: 1rem 0;
+        padding: 1rem;
+        background: var(--light-blue);
+        border-radius: 1rem;
+        border: 2px solid var(--accent-blue);
+    }
+
+    .buy-button {
+        background: var(--primary-blue);
+        color: var(--white);
+        border: none;
+        padding: 1.25rem;
+        border-radius: 1rem;
+        font-size: 1.1rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        box-shadow: var(--shadow-md);
+    }
+
+    .buy-button:hover {
+        background: var(--secondary-blue);
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-xl);
+    }
+
+    .buy-button:active {
+        transform: translateY(-1px);
+    }
+
+    .buy-button i {
+        margin-right: 0.75rem;
+    }
+
+    /* MODALS */
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(10px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 2000;
+        padding: 2rem;
+    }
+
+    .modal-content {
+        background: var(--white);
+        border-radius: 2rem;
+        padding: 3rem;
+        width: 100%;
+        max-width: 550px;
+        max-height: 90vh;
+        overflow-y: auto;
+        box-shadow: var(--shadow-2xl);
+        border: 1px solid var(--light-gray);
+    }
+
+    .modal-title {
+        font-size: 2rem;
+        font-weight: 800;
+        margin-bottom: 2rem;
+        text-align: center;
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .form-group {
+        margin-bottom: 2rem;
+    }
+
+    .form-label {
+        display: block;
+        margin-bottom: 0.75rem;
+        font-weight: 600;
+        color: var(--dark-navy);
+        font-size: 0.95rem;
+    }
+
+    .form-input, .form-select {
+        width: 100%;
+        padding: 1.25rem;
+        border: 2px solid var(--light-gray);
+        border-radius: 1rem;
+        background: var(--white);
+        color: var(--dark-navy);
+        font-size: 1rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .form-input:focus, .form-select:focus {
+        outline: none;
+        border-color: var(--primary-blue);
+        box-shadow: 0 0 0 4px rgba(30, 64, 175, 0.1);
+    }
+
+    .payment-summary {
+        background: var(--light-blue);
+        border: 2px solid var(--accent-blue);
+        border-radius: 1.5rem;
+        padding: 2.5rem;
+        margin: 2rem 0;
+        text-align: center;
+    }
+
+    .payment-amount {
+        font-size: 3rem;
+        font-weight: 900;
+        color: var(--primary-blue);
+        margin-bottom: 1rem;
+    }
+
+    .payment-details {
+        font-size: 1.1rem;
+        color: var(--dark-navy);
+        margin-bottom: 0.75rem;
+        font-weight: 600;
+    }
+
+    .modal-buttons {
+        display: flex;
+        gap: 1.5rem;
+        margin-top: 2.5rem;
+    }
+
+    /* SPONSORS SECTION */
+    .sponsors-section {
+        background: var(--dark-navy);
+        padding: 4rem 0;
+        margin-top: 4rem;
+    }
+
+    .sponsors-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        text-align: center;
+    }
+
+    .sponsors-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--white);
+        margin-bottom: 3rem;
+        background: var(--gradient-stake);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .sponsors-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 3rem;
+        margin-bottom: 3rem;
+    }
+
+    .sponsor-card {
+        background: rgba(255, 255, 255, 0.05);
+        border: 2px solid rgba(139, 92, 246, 0.3);
+        border-radius: 2rem;
+        padding: 3rem;
+        transition: all 0.4s ease;
+        backdrop-filter: blur(10px);
+    }
+
+    .sponsor-card:hover {
+        transform: translateY(-10px);
+        border-color: var(--stake-purple);
+        box-shadow: 0 20px 40px rgba(139, 92, 246, 0.3);
+    }
+
+    .sponsor-logo {
+        width: 120px;
+        height: 120px;
+        margin: 0 auto 2rem;
+        background: var(--gradient-stake);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        color: var(--white);
+        font-weight: 900;
+        box-shadow: var(--shadow-2xl);
+    }
+
+    .sponsor-name {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: var(--white);
+        margin-bottom: 1rem;
+    }
+
+    .sponsor-description {
+        color: var(--accent-blue);
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin-bottom: 2rem;
+    }
+
+    .sponsor-link {
+        background: var(--gradient-stake);
+        color: var(--white);
+        padding: 1rem 2rem;
+        border-radius: 1rem;
+        text-decoration: none;
+        font-weight: 700;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .sponsor-link:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-xl);
+    }
+
+    .sponsors-footer {
+        color: var(--accent-blue);
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+
+    /* FOOTER */
+    .footer {
+        background: var(--dark-navy);
+        color: var(--white);
+        padding: 4rem 0 2rem;
+        margin-top: 6rem;
+    }
+
+    .footer-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        text-align: center;
+    }
+
+    .footer-text {
+        font-size: 2rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, var(--white), var(--accent-blue));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .footer-text {
+        color: var(--accent-blue);
+        margin-bottom: 3rem;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.7;
+        font-size: 1.1rem;
+    }
+
+    .footer-links {
+        display: flex;
+        justify-content: center;
+        gap: 3rem;
+        margin-bottom: 3rem;
+        flex-wrap: wrap;
+    }
+
+    .footer-link {
+        color: var(--accent-blue);
+        text-decoration: none;
+        transition: color 0.3s ease;
+        font-weight: 500;
+    }
+
+    .footer-link:hover {
+        color: var(--white);
+    }
+
+    .footer-bottom {
+        border-top: 1px solid var(--dark-gray);
+        padding-top: 2rem;
+        color: var(--accent-blue);
+        font-size: 0.95rem;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+        .header-container {
+            padding: 0 1rem;
+        }
+        
+        .header-tagline {
+            display: none;
+        }
+        
+        .banner-title {
+            font-size: 2.5rem;
+        }
+        
+        .banner-subtitle {
+            font-size: 1.1rem;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+        }
+        
+        .auth-modal {
+            padding: 2rem;
+            margin: 1rem;
+        }
+        
+        .modal-content {
+            padding: 2rem;
+            margin: 1rem;
+        }
+        
+        .auth-buttons, .modal-buttons {
+            flex-direction: column;
+        }
+        
+        .games-grid {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        
+        .banner-features {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        
+        .sponsors-grid {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        
+        .intro-collaboration {
+            font-size: 2rem;
+        }
+        
+        .sponsors-title {
+            font-size: 2rem;
+        }
+        
+        .sidebar-content {
+            width: 300px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .intro-title {
+            font-size: 3rem;
+        }
+        
+        .intro-subtitle {
+            font-size: 1.2rem;
+        }
+        
+        .intro-collaboration {
+            font-size: 1.8rem;
+        }
+        
+        .banner-card {
+            padding: 2.5rem;
+        }
+        
+        .user-info {
+            font-size: 0.75rem;
+        }
+        
+        .balance-display {
+            padding: 0.4rem 1rem;
+        }
+        
+        .sponsor-card {
+            padding: 2rem;
+        }
+        
+        .sidebar-content {
+            width: 280px;
+        }
+    }
+
+    /* ANIMATIONS */
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+    }
+
+    .pulse-blue {
+        animation: pulseBlue 2s infinite;
+    }
+
+    @keyframes pulseBlue {
+        0% { box-shadow: 0 0 0 0 rgba(30, 64, 175, 0.7); }
+        70% { box-shadow: 0 0 0 15px rgba(30, 64, 175, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(30, 64, 175, 0); }
+    }
+
+    /* UTILITY CLASSES */
+    #intro.hidden,
+    .auth-container.hidden,
+    .modal-overlay.hidden,
+    #sidebar.hidden {
+    display: none !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    }
+
+    .sidebar:not(.active) .sidebar-overlay {
+    display: none !important;
+    }
+
+    #header, #mainContent, #footer,
+    .games-container, .section, .games-grid, .game-card {
+    opacity: 1 !important;
+    filter: none !important;
+    }
+    /* —— XP × Stake splash —————————————————————————————— */
+    .intro-collaboration {
+    position: relative;
+    letter-spacing: .5px;
+    line-height: 1;
+    }
+
+   /* ==== XPRecargas × Stake (fix visual) ==== */
+#collabText {
+  /* tamaño responsivo y presencia */
+  font-size: clamp(32px, 6vw, 72px);
+  font-weight: 900;
+  letter-spacing: .02em;
+  line-height: 1.05;
+  text-transform: none;
+
+  /* NECESARIO para que el gradiente se vea en texto */
+  display: inline-block;
+  background-image: var(--gradient-stake);
+  background-size: 200% 100%;
+  background-position: 0% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;                 /* Firefox */
+  -webkit-text-fill-color: transparent; /* Chrome/Safari */
+
+  /* un poco de profundidad */
+  text-shadow: 0 2px 12px rgba(0,0,0,.25);
+}
+
+/* brillo que recorre el texto */
+#collabText.shine { animation: textShine 1.8s linear infinite; }
+@keyframes textShine { to { background-position: -200% 50%; } }
+
+/* fallback si el navegador no soporta clip en texto */
+@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+  #collabText { color: #ffffff; background: none; }
+}
+
+/* letras individuales (si usas el split) */
+#collabText .ch { display:inline-block; opacity:0; transform:translateY(20px) scale(.9); }
+
+/* glow extra opcional cuando termina */
+.glow {
+  filter: drop-shadow(0 0 12px rgba(139,92,246,.55))
+          drop-shadow(0 0 22px rgba(16,185,129,.35));
+}
+
+/* —— XPRecargas × Stake (letra a letra con gradiente) —— */
+#collabText{
+  font-size: clamp(36px, 6vw, 84px);
+  font-weight: 900;
+  letter-spacing: .02em;
+  line-height: 1.05;
+  text-shadow: none;            /* quita sombra oscura del padre */
+}
+
+/* cada letra lleva el gradiente y aparece animada */
+#collabText .ch{
+  display:inline-block;
+  background-image: var(--gradient-stake);
+  background-size: 200% 100%;
+  background-position: 0% 50%;
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;           /* Firefox */
+  opacity: 0;
+  transform: translateY(12px) scale(.96);
+  will-change: transform, opacity, background-position;
+}
+
+/* brillo que “pasa” por las letras */
+#collabText.shine .ch{ animation: textShine 1.8s linear infinite; }
+@keyframes textShine { to { background-position: -200% 50%; } }
+
+/* glow suave extra */
+#collabText.glow{
+  filter: drop-shadow(0 0 14px rgba(139,92,246,.45))
+          drop-shadow(0 0 26px rgba(16,185,129,.35));
+}
+
+    
+
+</style>
 </head>
 <body>
     <!-- Intro Animation con Sponsor -->
@@ -381,6 +1664,343 @@
         </div>
     </footer>
 
- <script src="script.js" defer></script>
+<script>
+// Estado global
+let users = {
+  demo: { password: "demo", balance: 5000, level: 5, xp: 2500 }
+};
+let currentUser = null;
+
+// Base de datos de juegos actualizada con servicios específicos
+const gameDatabase = {
+  webStore: [
+    { name:"EA SPORTS FC 25", serviceType:"Créditos FC", imageUrl:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQehY3e0-kzgDj1EZuSHyHMazVcsVxQ8xyisw&s", min:100, basePrice:850, description:"El simulador de fútbol más realista del mundo con gráficos ultra HD", id:"EA025", category:"Sports" },
+    { name:"Call of Duty: Mobile", serviceType:"CP (CoD Points)", imageUrl:"https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&h=300&fit=crop", min:200, basePrice:1200, description:"Battle Royale y multijugador competitivo de élite", id:"COD025", category:"FPS" }
+  ],
+  popular: [
+    { name:"Fortnite", serviceType:"V-Bucks", imageUrl:"https://images.unsplash.com/photo-1560253023-3ec5d502959f?w=400&h=300&fit=crop", min:100, basePrice:1500, description:"Battle Royale líder mundial con temporadas épicas", id:"FN025", category:"Battle Royale" },
+    { name:"Free Fire MAX", serviceType:"Diamantes", imageUrl:"https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400&h=300&fit=crop", min:100, basePrice:600, description:"Batalla rápida, supervivencia extrema, gráficos mejorados", id:"FF025", category:"Battle Royale" },
+    { name:"PUBG Mobile", serviceType:"UC (Unknown Cash)", imageUrl:"https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=400&h=300&fit=crop", min:60, basePrice:800, description:"El Battle Royale más táctico y competitivo", id:"PUB025", category:"Battle Royale" },
+    { name:"Mobile Legends", serviceType:"Diamantes ML", imageUrl:"https://www.shutterstock.com/image-vector/surakarta-indonesia-january-14-2024-260nw-2412511519.jpg", min:50, basePrice:500, description:"MOBA 5v5 más jugado del mundo", id:"ML025", category:"MOBA" },
+    { name:"Genshin Impact", serviceType:"Génesis Crystals", imageUrl:"https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400&h=300&fit=crop", min:60, basePrice:1000, description:"RPG mundo abierto con gráficos anime", id:"GI025", category:"RPG" },
+    { name:"Clash Royale", serviceType:"Gemas", imageUrl:"https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400&h=300&fit=crop", min:50, basePrice:400, description:"Estrategia en tiempo real con cartas", id:"CR025", category:"Strategy" }
+  ],
+  new: [
+    { name:"Honkai: Star Rail", serviceType:"Oneiric Shards", imageUrl:"https://images.unsplash.com/photo-1560253023-3ec5d502959f?w=400&h=300&fit=crop", min:60, basePrice:1300, description:"RPG espacial con combate estratégico", id:"HSR025", category:"RPG", isNew:true },
+    { name:"Diablo Immortal", serviceType:"Eternal Orbs", imageUrl:"https://images.unsplash.com/photo-1560253023-3ec5d502959f?w=400&h=300&fit=crop", min:50, basePrice:1100, description:"Action RPG demoniaco", id:"DI025", category:"Action RPG", isNew:true },
+    { name:"Tower of Fantasy", serviceType:"Tanium", imageUrl:"https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&h=300&fit=crop", min:60, basePrice:900, description:"MMORPG futurista mundo abierto", id:"TOF025", category:"MMORPG", isNew:true }
+  ]
+};
+
+// Helpers DOM
+const $ = (sel) => document.querySelector(sel);
+const $$ = (sel) => document.querySelectorAll(sel);
+
+// Elementos clave
+let intro, auth, header, mainContent, footer, userInfo, guestActions, userDisplay, userBalance;
+let sidebar, sidebarClose;
+let webStoreEl, popularEl, newEl;
+let purchaseModal, paymentModal, cancelPurchaseBtn, backToPurchaseBtn, toPaymentBtn, sendWhatsAppBtn;
+let gameSelectedSel, amountSelectedInp, fullNameInp, phoneInp, dniInp;
+
+// Inicio
+document.addEventListener("DOMContentLoaded", () => {
+  cacheEls();
+  lockUntilLogin(true);
+  startIntroThenAuth();
+  bindGlobalEvents();
+});
+
+// Cache de elementos
+function cacheEls() {
+  intro = $("#intro");
+  auth = $("#auth");
+  header = $("#header");
+  mainContent = $("#mainContent");
+  footer = $("#footer");
+  userInfo = $("#userInfo");
+  guestActions = $("#guestActions");
+  userDisplay = $("#userDisplay");
+  userBalance = $("#userBalance");
+  sidebar = $("#sidebar");
+  sidebarClose = $("#sidebarClose");
+
+  webStoreEl = $("#webStoreGames");
+  popularEl = $("#popularGames");
+  newEl = $("#newGames");
+
+  purchaseModal = $("#purchaseModal");
+  paymentModal = $("#paymentModal");
+  cancelPurchaseBtn = $("#cancelPurchase");
+  backToPurchaseBtn = $("#backToPurchase");
+  toPaymentBtn = $("#toPayment");
+  sendWhatsAppBtn = $("#sendWhatsApp");
+
+  gameSelectedSel = $("#gameSelected");
+  amountSelectedInp = $("#amountSelected");
+  fullNameInp = $("#fullName");
+  phoneInp = $("#phone");
+  dniInp = $("#dni");
+}
+
+// Bloquear scroll hasta login
+function lockUntilLogin(lock) {
+  document.body.style.overflow = lock ? "hidden" : "";
+}
+
+// Intro con sponsor → Auth
+function splitIntoSpans(el) {
+  const text = el.textContent;
+  el.textContent = "";
+  for (const ch of text) {
+    const s = document.createElement("span");
+    s.className = "ch";
+    s.textContent = ch;
+    el.appendChild(s);
+  }
+}
+
+function startIntroThenAuth() {
+  const collab = document.getElementById("collabText");
+  splitIntoSpans(collab);               // crea span por letra
+  collab.classList.add("shine");        // shine de fondo
+
+  const tl = gsap.timeline();
+
+  tl.from(".intro-sponsor", { duration:0.6, y:30, opacity:0, ease:"power3.out" })
+    .from(".intro-logo",    { duration:0.9, scale:0, rotation:180, opacity:0, ease:"back.out(1.6)" }, "-=0.2")
+    // letras una por una
+    .to("#collabText .ch",  { duration:0.6, opacity:1, y:0, scale:1, ease:"power3.out", stagger:0.035 }, "-=0.3")
+    .to("#collabText",      { duration:0.3, className:"+=glow" }, "-=0.2")
+    .from(".intro-title",   { duration:0.6, y:40, opacity:0, ease:"power3.out" }, "-=0.2")
+    .from(".intro-subtitle",{ duration:0.5, y:28, opacity:0, ease:"power2.out" }, "-=0.3")
+    // mantenemos en pantalla un instante y salimos
+    .to("#intro", { duration:0.75, opacity:0, scale:0.97, delay:0.9, ease:"power2.inOut",
+      onComplete: () => {
+        document.getElementById("intro").classList.add("hidden");
+        document.getElementById("auth").classList.remove("hidden");
+        document.getElementById("header").classList.add("hidden");
+        document.getElementById("mainContent").classList.add("hidden");
+        document.getElementById("footer").classList.add("hidden");
+        gsap.from(".auth-modal",{ duration:0.7, y:20, scale:0.96, opacity:0, ease:"power4.out" });
+      }
+    });
+}
+
+function openSidebar() {
+  const sb = document.getElementById("sidebar");
+  if (!sb) return;
+  sb.classList.remove("hidden");
+  sb.classList.add("active");
+  document.body.style.overflow = "hidden";
+}
+
+function closeSidebar() {
+  const sb = document.getElementById("sidebar");
+  if (!sb) return;
+  sb.classList.remove("active");
+  setTimeout(() => sb.classList.add("hidden"), 300);
+  document.body.style.overflow = "";
+}
+
+// Listeners únicos
+document.getElementById("menuToggle")?.addEventListener("click", openSidebar);
+document.getElementById("sidebarClose")?.addEventListener("click", closeSidebar);
+document.querySelector("#sidebar .sidebar-overlay")?.addEventListener("click", closeSidebar);
+
+// Eventos globales
+function bindGlobalEvents() {
+  $("#headerRegister")?.addEventListener("click", openAuth);
+  $("#login")?.addEventListener("click", handleLogin);
+  $("#register")?.addEventListener("click", handleRegister);
+  cancelPurchaseBtn?.addEventListener("click", () => toggleModal(purchaseModal,false));
+  backToPurchaseBtn?.addEventListener("click", () => { toggleModal(paymentModal,false); toggleModal(purchaseModal,true); });
+  toPaymentBtn?.addEventListener("click", proceedToPayment);
+  sendWhatsAppBtn?.addEventListener("click", sendVoucherWhatsApp);
+}
+
+function openAuth() {
+  auth.classList.remove("hidden");
+  lockUntilLogin(true);
+}
+
+function handleLogin() {
+  const user = $("#username").value.trim();
+  const pass = $("#password").value.trim();
+
+  if (!user || !pass) return showAuthMsg("Completa usuario y contraseña", "error");
+
+  const exists = users[user];
+  if (!exists || exists.password !== pass) return showAuthMsg("Usuario o contraseña inválidos", "error");
+
+  currentUser = user;
+  afterSuccessfulLogin();
+}
+
+function handleRegister() {
+  const user = $("#username").value.trim();
+  const pass = $("#password").value.trim();
+  if (!user || !pass) return showAuthMsg("Completa usuario y contraseña para registrarte", "error");
+  if (users[user]) return showAuthMsg("El usuario ya existe", "error");
+  users[user] = { password: pass, balance: 0, level: 1, xp: 0 };
+  showAuthMsg("Registro exitoso. Ahora inicia sesión.", "success");
+}
+
+function showAuthMsg(text, type) {
+  const box = $("#authMessage");
+  box.textContent = text;
+  box.classList.remove("hidden","success","error");
+  box.classList.add(type);
+}
+
+// Tras login: mostrar todo y renderizar
+function afterSuccessfulLogin() {
+  auth.classList.add("hidden");
+  header.classList.remove("hidden");
+  mainContent.classList.remove("hidden");
+  footer.classList.remove("hidden");
+  lockUntilLogin(false);
+
+  // Info de usuario en header
+  userDisplay.textContent = currentUser;
+  userBalance.textContent = users[currentUser]?.balance ?? 0;
+  userInfo.classList.remove("hidden");
+  guestActions.classList.add("hidden");
+
+  // Renderizar catálogo y animar
+  renderAllSections();
+  animateMain();
+}
+
+// Render general
+function renderAllSections() {
+  renderSection(webStoreEl, gameDatabase.webStore);
+  renderSection(popularEl, gameDatabase.popular);
+  renderSection(newEl, gameDatabase.new, true);
+  populateGamingSelect();
+  attachCardBehaviors();
+}
+
+// Render de una sección
+function renderSection(container, games, markNew=false) {
+  container.innerHTML = games.map(g => cardHTML(g, markNew && g.isNew)).join("");
+}
+
+// Card HTML - CON SERVICIOS ESPECÍFICOS
+function cardHTML(g, isNew=false) {
+  const priceId = "price_" + g.name.toLowerCase().replace(/[^a-z0-9]+/g,"_");
+  return `
+    <div class="game-card ${isNew ? "new":""}">
+      <div class="game-image">
+        <img src="${g.imageUrl}" alt="${g.name}"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="game-image-placeholder" style="display:none;">🎮</div>
+      </div>
+      <div class="game-content">
+        <h3 class="game-title">${g.name}</h3>
+        <p class="game-description">${g.description}</p>
+        <div class="game-controls">
+          <div class="quantity-group">
+            <label class="quantity-label">${g.serviceType}:</label>
+            <input type="number" class="quantity-input"
+                   data-game="${g.name}"
+                   data-id="${g.id}"
+                   data-min="${g.min}"
+                   data-baseprice="${g.basePrice}"
+                   value="${g.min}" min="${g.min}">
+          </div>
+          <div class="price-display">$<span id="${priceId}">${g.basePrice}</span> ARS</div>
+          <button class="buy-button" data-game="${g.name}" data-id="${g.id}">
+            <i class="fas fa-bolt"></i> Comprar Ahora
+          </button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// Selección del modal de compra
+function populateGamingSelect() {
+  const all = [...gameDatabase.webStore, ...gameDatabase.popular, ...gameDatabase.new];
+  gameSelectedSel.innerHTML = all.map(g => `<option value="${g.id}">${g.name} (${g.serviceType})</option>`).join("");
+}
+
+// Lógica de precio en vivo + abrir modal compra
+function attachCardBehaviors() {
+  // Actualiza precio cuando cambia cantidad
+  $$(".quantity-input").forEach(inp => {
+    inp.addEventListener("input", (e) => {
+      const el = e.currentTarget;
+      const min = Number(el.dataset.min);
+      const base = Number(el.dataset.baseprice);
+      let qty = Number(el.value || 0);
+      if (qty < min) { qty = min; el.value = min; }
+      const priceId = "price_" + el.dataset.game.toLowerCase().replace(/[^a-z0-9]+/g,"_");
+      const price = Math.round((qty / min) * base);
+      const span = document.getElementById(priceId);
+      if (span) span.textContent = price;
+    });
+  });
+
+  // Abrir modal de compra
+  $$(".buy-button").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      const card = e.currentTarget.closest(".game-card");
+      const inp = card.querySelector(".quantity-input");
+      const gameId = inp.dataset.id;
+      const gameName = inp.dataset.game;
+      const min = Number(inp.dataset.min);
+      const base = Number(inp.dataset.baseprice);
+      const qty = Math.max(Number(inp.value||min), min);
+      const amount = Math.round((qty/min)*base);
+
+      // Prefill modal
+      gameSelectedSel.value = gameId;
+      amountSelectedInp.value = qty;
+      $("#paymentAmount").textContent = amount;
+
+      toggleModal(purchaseModal,true);
+    });
+  });
+}
+
+// Animaciones del main después de render
+function animateMain() {
+  gsap.from(".banner-card",{ duration:1.0, y:50, opacity:0, ease:"power3.out" });
+  const cards = $$(".game-card");
+  if (cards.length) {
+    gsap.from(cards, { duration:0.8, y:30, opacity:0, stagger:0.08, delay:0.2, ease:"power2.out" });
+  }
+  gsap.from($$(".section-title"),{ duration:0.6, x:-20, opacity:0, stagger:0.15, delay:0.3, ease:"power2.out" });
+  gsap.from(".sponsor-card", { duration:0.8, y:50, opacity:0, stagger:0.1, delay:0.5, ease:"power3.out" });
+}
+
+// Modales
+function toggleModal(modal, show=true) {
+  modal.classList.toggle("hidden", !show);
+  document.body.style.overflow = show ? "hidden" : "";
+}
+
+// Ir a pago
+function proceedToPayment() {
+  const selectedId = gameSelectedSel.value;
+  const all = [...gameDatabase.webStore, ...gameDatabase.popular, ...gameDatabase.new];
+  const g = all.find(x => x.id === selectedId);
+  const qty = Math.max(Number(amountSelectedInp.value||g.min), g.min);
+  const amount = Math.round((qty / g.min) * g.basePrice);
+
+  $("#paymentAmount").textContent = amount;
+  toggleModal(purchaseModal,false);
+  toggleModal(paymentModal,true);
+}
+
+// Simular envío por WhatsApp
+function sendVoucherWhatsApp() {
+  const amount = $("#paymentAmount").textContent;
+  const msg = encodeURIComponent(`Hola, envié comprobante por ${amount} ARS para mi recarga.`);
+  window.open(`https://wa.me/51932460578?text=${msg}`, "_blank");
+
+}
+</script>
 </body>
 </html>
